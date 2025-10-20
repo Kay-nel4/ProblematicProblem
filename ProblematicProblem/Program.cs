@@ -8,158 +8,172 @@ namespace ProblematicProblem
 
     public class Program
     {
-        static void Main(string[] args)
-
-
+        static string userInput;
+        static Random random = new Random();
+        static bool cont = true;
+        static List<string> activities = new List<string>()
         {
-            Random rng = new Random();
-            List<string> activities = new List<string>()
+            "Movies", "Paintball", "Bowling", "Lazer Tag", "LAN Party", "Hiking", "Axe Throwing", "Wine Tasting"
+        };
+       
+        static void Main(string[] args)
+        {
+            Console.Write("Hello, welcome to the random activity generator! \nWould you like to generate a random activity? yes/no: ");
+            userInput = Console.ReadLine().Trim().ToLower();
+            while (userInput != "yes" && userInput != "no")
             {
-                "Movies", "Paintball", "Bowling", "Lazer Tag", "LAN Party", "Hiking", "Axe Throwing", "Wine Tasting"
-            };
+                Console.WriteLine("A Yes or No answer Please.");
+                userInput = Console.ReadLine().Trim().ToLower();
+            }
 
+            if (userInput != "yes")
             {
-                Console.Write(
-                    "Hello, welcome to the random activity generator! \nWould you like to generate a random activity? yes/no: ");
-                var answer = Console.ReadLine().Trim().ToLower();
-                while (answer != "yes" && answer != "no")
+                Console.WriteLine("Goodbye!");
+                return;
+            }
+
+            Console.WriteLine();
+            Console.Write("We are going to need your information first! What is your name? ");
+            string userName = Console.ReadLine();
+               
+            Console.WriteLine();
+            Console.Write("What is your age? ");
+            int userAge = int.TryParse(Console.ReadLine(), out userAge) ? userAge : 0;
+            while (userAge == 0)
+            {
+                Console.WriteLine("Please enter a valid age.");
+            }
+            Console.WriteLine("Would you like to see the current list of activities? Sure/No thanks: ");
+            Console.WriteLine();
+            
+            userInput = Console.ReadLine().Trim().ToLower();
+            
+            while (userInput != "no" && userInput != "no thanks" && userInput != "yes" && userInput != "sure")
+            {
+                Console.Write("Please choose Sure or No Thanks: ");
+                userInput = Console.ReadLine().Trim().ToLower();
+            }
+
+               
+            if (userInput == "sure")
+            {
+                foreach (string activity in activities)
                 {
-                    Console.WriteLine("A Yes or No answer Please.");
-                    answer = Console.ReadLine().Trim().ToLower();
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.Write($"{activity}, ");
+                    Thread.Sleep(250);
                 }
 
-                if (answer == "no")
+                Console.WriteLine("Would you like to add anything to the list of activities? Yes/No: ");
+                string addToList = Console.ReadLine();
+                
+                Console.WriteLine();
+
+                while (addToList.ToLower() != "no")
                 {
-                    Console.WriteLine("Goodbye!");
+                    Console.Write("what would you like to add? ");
+                    string userAddition = Console.ReadLine();
+
+                    activities.Add(userAddition);
+
+                    foreach (string activity in activities)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write($"{activity}, ");
+                        Thread.Sleep(250);
+                    }
+
+                    Console.Write("Would you like to add anything else? Yes/No : ");
+                    addToList = Console.ReadLine();
                 }
 
-                if (answer == "yes")
-                {
-                    Console.WriteLine();
-                    Console.Write("We are going to need your information first! What is your name? ");
-                    var userName = Console.ReadLine();
-                    Console.WriteLine();
-                    Console.Write("What is your age? ");
-                    int age;
-                    while (!int.TryParse(Console.ReadLine(), out age))
-                    {
-                        Console.WriteLine("Please enter a valid age.");
-                    }
+                   //if (seeList == "no thanks" || seeList == "no")
+                   //{
+                   //Console.WriteLine("Ok Goodbye!");
+                   //return;
+                   //}
 
-                    Console.WriteLine();
-                    Console.Write("Would you like to see the current list of activities? Sure/No thanks: ");
-                    var seeList = Console.ReadLine().Trim().ToLower();
-                    while (seeList != "no" && seeList != "no thanks" && seeList != "yes" && seeList != "sure")
-                    {
-                        Console.Write("Please choose Sure or No Thanks: ");
-                        seeList = Console.ReadLine().Trim().ToLower();
-                    }
+                Console.ResetColor();
 
-                    if (seeList == "no thanks" || seeList == "no")
-                    {
-                        Console.WriteLine("Ok Goodbye!");
-                        return;
-                    }
-
-                    if (seeList == "sure" || seeList == "yes")
-
-                        foreach (string activity in activities)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Blue;
-                            Console.Write($"{activity}, ");
-                            Thread.Sleep(250);
-
-                        }
-
-                    Console.ResetColor();
-
-                    Console.WriteLine();
-                    Console.Write("Would you like to add any activities before we generate one? yes/no: ");
-                    var addToList = Console.ReadLine().Trim().ToLower();
-
-                    while (addToList != "yes" && addToList != "no")
+                Console.WriteLine();
+            }
+               //Console.Write("Would you like to add any activities before we generate one? yes/no: ");
+                    //var addToList = Console.ReadLine().Trim().ToLower();
+                        
+                    
+                   /* while (addToList != "yes" && addToList != "no")
                     {
                         Console.Write("Please enter a Yes or No: ");
                         addToList = Console.ReadLine().Trim().ToLower();
-                    }
-                    if (addToList == "yes")
+                    }*/
+                    /*if (addToList == "yes")
                     {
                         Console.WriteLine();
                         while (addToList.Trim().ToLower() == "yes")
                         {
                             Console.Write("What would you like to add? ");
-                            string userAddition = Console.ReadLine();
-                            activities.Add(userAddition);
-                            foreach (string activity in activities)
-                            {
-                                Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.Write($"{activity}, ");
-                                Thread.Sleep(250);
-                            }
+                           
 
                             Console.ResetColor();
 
                             Console.WriteLine();
                             Console.Write("Would you like to add more? yes/no: ");
 
-                            while (addToList != "yes" && addToList != "no")
+                            /*while (addToList != "yes" && addToList != "no")
                             {
                                 Console.Write("Please enter a Yes or No: ");
                                 addToList = Console.ReadLine().Trim().ToLower();
-                            }
+                            }*/
 
-                            if (Console.ReadLine().Trim().ToLower() == "yes")
+                            /*if (Console.ReadLine().Trim().ToLower() == "yes")
                             {
                                 addToList = (Console.ReadLine());
                                 activities.Add(addToList);
                             }
                             //need to figure out a way to say no and still continue on to the next step...
-                            {        
-                                Console.Write("Connecting to the database");
-                                for (int i = 0; i < 1; i++)
-                                {
-                                    Console.Write(". ");
-                                    Thread.Sleep(500);
-                                }
-
-                                Console.WriteLine();
-                                Console.Write("Choosing your random activity");
-                                for (int i = 0; i < 1; i++)
-                                {
-                                    Console.Write(". ");
-                                    Thread.Sleep(500);
-
-                                    Console.WriteLine();
-                                    var randomNumber = rng.Next(activities.Count);
-                                    var randomActivity = activities[randomNumber];
-
-                                    if ((age < 21) && (randomActivity) == "Wine Tasting")
-                                    {
-                                        Console.WriteLine($"Oh no! Looks like you are too young to do {randomActivity}");
-                                        Console.WriteLine("Pick something else!");
-                                        activities.Remove(randomActivity);
-                                        Random rngTwo = new Random();
-                                        var activityTwo = rngTwo.Next(activities.Count);
-                                        string randomActivityTwo = activities[activityTwo];
-
-                                        Console.Write($"Ah got it! {userName}, your random activity is: {randomActivityTwo}! Is this ok or do you want to grab another activity? Keep/Redo: ");
-                                    }
-
-                                    Console.WriteLine(
-                                        $"Ah got it! {userName}, your random activity is {randomActivity}");
-                                    Console.WriteLine(
-                                        "Thanks for using the Random Activity Generator... Enjoy your Activity!");
-                                }
-
-                                break;
-
-                            }
-
-
-                        }
-                    }
+                            {*/
+            do
+            {
+                Console.Write("Connecting to the database");
+                for (int i = 0; i < 10; i++)
+                {
+                    Console.Write(". ");
+                    Thread.Sleep(500);
                 }
-            }
+
+                Console.WriteLine();
+                Console.Write("Choosing your random activity");
+                
+                for (int i = 0; i < 9; i++)
+                {
+                    Console.Write(". ");
+                    Thread.Sleep(500);
+                }
+
+                Console.WriteLine(); 
+                int randomNumber = random.Next(activities.Count);
+                string randomActivity = activities[randomNumber];
+
+                if (userAge < 21 && randomActivity == "Wine Tasting")
+                {
+                    Console.WriteLine($"Oh no! Looks like you are too young to do {randomActivity}");
+                    Console.WriteLine("Pick something else!");
+
+                    activities.Remove(randomActivity);
+
+                    randomNumber = random.Next(activities.Count);
+                    randomActivity = activities[randomNumber];
+                }
+
+                Console.Write($"Ah got it! {userName}, your random activity is: {randomActivity}! Is this ok or do you want to grab another activity? Keep/Redo: ");
+                                
+                userInput = Console.ReadLine();
+                if (userInput.ToLower() != "redo")
+                {
+                    cont = false;
+                }
+
+            } while (cont);
         }
     }
 }
